@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const NoteForm = (props) => {
-    const { note = { title: '', text: '' } } = props
+export const NoteForm = ({note}) => {
+    const { title ='', text = '' }  = note
 
     return <form>
         <div className="form-group">
@@ -10,6 +10,7 @@ export const NoteForm = (props) => {
                 className="form-control"
                 data-testid="input-title"
                 name="title"
+                value={title}
             />
         </div>
         <div className="form-group">
@@ -18,6 +19,7 @@ export const NoteForm = (props) => {
                 className="form-control"
                 data-testid="input-text"
                 name="text"
+                value={text}
             />
         </div>
         <div className="form-group">

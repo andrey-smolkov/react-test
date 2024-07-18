@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { NotesList } from './NotesList'
 import { NoteForm } from './NoteForm'
@@ -9,6 +9,18 @@ export const App = (props) => {
     const [notes, setNotes] = useState([])
     const [selected, setSelected] = useState(null)
 
+    const getNotes = async() => {
+        const _notes =  await service.getNotes();
+        console.log(_notes)
+        setNotes(_notes);
+    }
+
+    useEffect( () => {
+        getNotes()
+    },[])
+
+
+
     // (!) Get notes from service
 
     // Select new empty note
@@ -17,8 +29,10 @@ export const App = (props) => {
     }
 
     // Set note as selected
-    function onSelect(note){
-
+    function onSelect(id){
+        const _selected = notes.find(note => note.id === id)
+        console.log('s', _selected)
+       setSelected(_selected)
     }
 
     // Save note to service
@@ -40,10 +54,13 @@ export const App = (props) => {
             </div>
             <div className="row">
                 <div className="col-md-4">
-                    <NotesList notes={[]} />
+                    <NotesList
+                        notes={notes}
+                        onSelect={onSelect}
+                    />
                 </div>
                 <div className="col-md-8">
-                    <NoteForm />
+                    <NoteForm note={selected}  />
                     <div><button id="new-note">New Note</button></div>
                 </div>
             </div>
