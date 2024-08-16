@@ -7,7 +7,7 @@ import { App } from '../components/App'
 describe('App Component', () => {
 
     const notes = [{
-        id: '4567', title: 'take the exam', text: 'take devskiller assessment'
+        id: '4567', title: 'take the exam', text: 'take  assessment'
     }]
 
     it('should call notesService.getNotes() when rendered', async () => {

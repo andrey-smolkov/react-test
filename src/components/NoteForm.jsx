@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const NoteForm = ({note}) => {
-    const { title ='', text = '' }  = note
+export const NoteForm = ({ note, onTitleChange, onSubmit  }) => {
+    const { title ='', text = '' }  = note || {};
 
     return <form>
         <div className="form-group">
@@ -9,6 +9,7 @@ export const NoteForm = ({note}) => {
             <input
                 className="form-control"
                 data-testid="input-title"
+                onChange={onTitleChange}
                 name="title"
                 value={title}
             />
@@ -30,10 +31,11 @@ export const NoteForm = ({note}) => {
                 value="Cancel"
             />
             <input
-                type="submit"
+                type="button"
                 data-testid="save-note"
                 className="btn btn-default pull-right"
                 value="Save"
+                onClick={onSubmit}
             />
         </div>
     </form>

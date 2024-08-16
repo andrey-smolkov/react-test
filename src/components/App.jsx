@@ -6,8 +6,9 @@ import { NoteForm } from './NoteForm'
 export const App = (props) => {
     const { service } = props
 
-    const [notes, setNotes] = useState([])
-    const [selected, setSelected] = useState(null)
+    const [notes, setNotes] = useState([]);
+    const [selected, setSelected] = useState(null);
+
 
     const getNotes = async() => {
         const _notes =  await service.getNotes();
@@ -35,9 +36,14 @@ export const App = (props) => {
        setSelected(_selected)
     }
 
-    // Save note to service
-    function onSubmit(note){
+    function updateTitle(e){
+        setSelected((prev) => ({...prev, title: e.target.value}))
+    }
 
+    // Save note to service
+    function onSubmit(){
+
+        setNotes(notes => notes.map(note => selected?.id === note.id ? selected : note))
     }
 
     // Unselect note
@@ -60,7 +66,7 @@ export const App = (props) => {
                     />
                 </div>
                 <div className="col-md-8">
-                    <NoteForm note={selected}  />
+                    <NoteForm note={selected} onTitleChange={updateTitle} onSubmit={onSubmit}  />
                     <div><button id="new-note">New Note</button></div>
                 </div>
             </div>
